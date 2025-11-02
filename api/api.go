@@ -95,6 +95,7 @@ func (api *api) CreateApp(createAppRequest *CreateAppRequest) (*CreateAppRespons
 		expiresAt,
 		createAppRequest.Scopes,
 		createAppRequest.Isolated,
+		createAppRequest.ShowFullBalance,
 		createAppRequest.Metadata,
 	)
 

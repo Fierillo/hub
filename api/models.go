@@ -142,6 +142,7 @@ type CreateAppRequest struct {
 	Scopes         []string `json:"scopes"`
 	ReturnTo       string   `json:"returnTo"`
 	Isolated       bool     `json:"isolated"`
+	ShowFullBalance bool    `json:"showFullBalance"`
 	Metadata       Metadata `json:"metadata,omitempty"`
 	UnlockPassword string   `json:"unlockPassword"`
 }
