@@ -97,6 +97,7 @@ type App struct {
 	BudgetUsage        uint64     `json:"budgetUsage"`
 	BudgetRenewal      string     `json:"budgetRenewal"`
 	Isolated           bool       `json:"isolated"`
+	ShowFullBalance    bool       `json:"showFullBalance"`
 	WalletPubkey       string     `json:"walletPubkey"`
 	UniqueWalletPubkey bool       `json:"uniqueWalletPubkey"`
 	Balance            int64      `json:"balance"`

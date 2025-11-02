@@ -6,6 +6,7 @@ import ExpirySelect from "src/components/ExpirySelect";
 import Scopes from "src/components/Scopes";
 import { Badge } from "src/components/ui/badge";
 import { Button } from "src/components/ui/button";
+import { Checkbox } from "src/components/ui/checkbox";
 import { cn } from "src/lib/utils";
 import {
   AppPermissions,
@@ -180,6 +181,28 @@ const Permissions: React.FC<PermissionsProps> = ({
             </div>
           )}
         </>
+      )}
+
+      {!permissions.isolated && permissions.maxAmount > 0 && (
+        <div className="flex mt-2">
+          <Checkbox
+            id="showFullBalance"
+            checked={permissions.showFullBalance}
+            onCheckedChange={(checked) =>
+              setPermissions?.((prev) => ({
+                ...prev,
+                showFullBalance: checked as boolean,
+              }))
+            }
+            className="mt-0.5"
+          />
+          <label
+            htmlFor="showFullBalance"
+            className="ml-2 text-sm text-foreground flex flex-col items-start justify-center"
+          >
+            Mostrar balance completo del nodo
+          </label>
+        </div>
       )}
 
       <>

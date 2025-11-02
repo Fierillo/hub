@@ -18,7 +18,7 @@ func TestHandleCreateApp_NilScopes(t *testing.T) {
 	defer svc.Remove()
 
 	appsService := apps.NewAppsService(svc.DB, svc.EventPublisher, svc.Keys, svc.Cfg)
-	app, secretKey, err := appsService.CreateApp("Test", "", 0, "monthly", nil, nil, false, nil)
+	app, secretKey, err := appsService.CreateApp("Test", "", 0, "monthly", nil, nil, false, false, nil)
 
 	assert.Nil(t, app)
 	assert.Equal(t, "", secretKey)
@@ -33,7 +33,7 @@ func TestHandleCreateApp_EmptyScopes(t *testing.T) {
 	defer svc.Remove()
 
 	appsService := apps.NewAppsService(svc.DB, svc.EventPublisher, svc.Keys, svc.Cfg)
-	app, secretKey, err := appsService.CreateApp("Test", "", 0, "monthly", nil, []string{}, false, nil)
+	app, secretKey, err := appsService.CreateApp("Test", "", 0, "monthly", nil, []string{}, false, false, nil)
 
 	assert.Nil(t, app)
 	assert.Equal(t, "", secretKey)
@@ -49,7 +49,7 @@ func TestHandleCreateApp_IsolatedUnsupportedBackendType(t *testing.T) {
 	svc.Cfg.SetUpdate("BackendType", config.CashuBackendType, "")
 
 	appsService := apps.NewAppsService(svc.DB, svc.EventPublisher, svc.Keys, svc.Cfg)
-	app, secretKey, err := appsService.CreateApp("Test", "", 0, "monthly", nil, []string{constants.GET_INFO_SCOPE}, true, nil)
+	app, secretKey, err := appsService.CreateApp("Test", "", 0, "monthly", nil, []string{constants.GET_INFO_SCOPE}, true, false, nil)
 
 	assert.Nil(t, app)
 	assert.Equal(t, "", secretKey)

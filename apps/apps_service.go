@@ -21,7 +21,7 @@ import (
 )
 
 type AppsService interface {
-	CreateApp(name string, pubkey string, maxAmountSat uint64, budgetRenewal string, expiresAt *time.Time, scopes []string, isolated bool, metadata map[string]interface{}) (*db.App, string, error)
+	CreateApp(name string, pubkey string, maxAmountSat uint64, budgetRenewal string, expiresAt *time.Time, scopes []string, isolated bool, showFullBalance bool, metadata map[string]interface{}) (*db.App, string, error)
 	DeleteApp(app *db.App) error
 	GetAppByPubkey(pubkey string) *db.App
 	GetAppById(id uint) *db.App
@@ -44,7 +44,7 @@ func NewAppsService(db *gorm.DB, eventPublisher events.EventPublisher, keys keys
 	}
 }
 
-func (svc *appsService) CreateApp(name string, pubkey string, maxAmountSat uint64, budgetRenewal string, expiresAt *time.Time, scopes []string, isolated bool, metadata map[string]interface{}) (*db.App, string, error) {
+func (svc *appsService) CreateApp(name string, pubkey string, maxAmountSat uint64, budgetRenewal string, expiresAt *time.Time, scopes []string, isolated bool, showFullBalance bool, metadata map[string]interface{}) (*db.App, string, error) {
 	if name == "" {
 		return nil, "", errors.New("no app name provided")
 	}
@@ -115,7 +115,7 @@ func (svc *appsService) CreateApp(name string, pubkey string, maxAmountSat uint6
 		}
 	}
 
-	app := db.App{Name: freeName, AppPubkey: pairingPublicKey, Isolated: isolated, Metadata: datatypes.JSON(metadataBytes)}
+	app := db.App{Name: freeName, AppPubkey: pairingPublicKey, Isolated: isolated, ShowFullBalance: showFullBalance, Metadata: datatypes.JSON(metadataBytes)}
 
 	err := svc.db.Transaction(func(tx *gorm.DB) error {
 		err := tx.Save(&app).Error

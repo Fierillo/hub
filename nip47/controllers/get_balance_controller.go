@@ -45,17 +45,20 @@ func (controller *nip47Controller) HandleGetBalanceEvent(ctx context.Context, ni
             return
         }
 
-        // Check if there's a budget set for pay_invoice (which applies to spending)
-        var appPermission db.AppPermission
-        err = controller.db.Where("app_id = ? AND scope = ?", app.ID, models.PAY_INVOICE_METHOD).First(&appPermission).Error
-        if err == nil && appPermission.MaxAmountSat > 0 {
-            // Calculate available budget
-            totalBudgetMsat := uint64(appPermission.MaxAmountSat) * MSAT_PER_SAT
-            usedBudgetMsat := queries.GetBudgetUsageSat(controller.db, &appPermission) * MSAT_PER_SAT
-            availableBudgetMsat := totalBudgetMsat - usedBudgetMsat
-            // Show the minimum of actual balance and available budget
-            if availableBudgetMsat < uint64(balance) {
-                balance = int64(availableBudgetMsat)
+        // Check if full balance should be shown or limited by budget
+        if !app.ShowFullBalance {
+            // Check if there's a budget set for pay_invoice (which applies to spending)
+            var appPermission db.AppPermission
+            err = controller.db.Where("app_id = ? AND scope = ?", app.ID, models.PAY_INVOICE_METHOD).First(&appPermission).Error
+            if err == nil && appPermission.MaxAmountSat > 0 {
+                // Calculate available budget
+                totalBudgetMsat := uint64(appPermission.MaxAmountSat) * MSAT_PER_SAT
+                usedBudgetMsat := queries.GetBudgetUsageSat(controller.db, &appPermission) * MSAT_PER_SAT
+                availableBudgetMsat := totalBudgetMsat - usedBudgetMsat
+                // Show the minimum of actual balance and available budget
+                if availableBudgetMsat < uint64(balance) {
+                    balance = int64(availableBudgetMsat)
+                }
             }
         }
     }

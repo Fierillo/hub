@@ -446,6 +446,7 @@ func (api *api) GetApp(dbApp *db.App) *App {
 		BudgetUsage:        budgetUsage,
 		BudgetRenewal:      paySpecificPermission.BudgetRenewal,
 		Isolated:           dbApp.Isolated,
+		ShowFullBalance:    dbApp.ShowFullBalance,
 		Metadata:           metadata,
 		WalletPubkey:       walletPubkey,
 		UniqueWalletPubkey: uniqueWalletPubkey,

@@ -210,6 +210,7 @@ const NewAppInternal = ({ capabilities }: NewAppInternalProps) => {
         : "monthly",
     expiresAt: parseExpiresParam(expiresAtParam),
     isolated: isolatedParam === "true",
+    showFullBalance: false,
   });
 
   const { Stepper } = React.useMemo(
@@ -252,6 +253,7 @@ const NewAppInternal = ({ capabilities }: NewAppInternalProps) => {
         expiresAt: permissions.expiresAt?.toISOString(),
         returnTo: returnTo,
         isolated: permissions.isolated,
+        showFullBalance: permissions.showFullBalance,
         metadata: {
           app_store_app_id: appStoreApp?.id,
         },

@@ -122,6 +122,7 @@ export interface App {
   lastUsedAt?: string;
   expiresAt?: string;
   isolated: boolean;
+  showFullBalance: boolean;
   balance: number;
 
   scopes: Scope[];
@@ -137,6 +138,7 @@ export interface AppPermissions {
   budgetRenewal: BudgetRenewalType;
   expiresAt?: Date;
   isolated: boolean;
+  showFullBalance: boolean;
 }
 
 export interface InfoResponse {
@@ -259,6 +261,7 @@ export interface CreateAppRequest {
   scopes: Scope[];
   returnTo?: string;
   isolated?: boolean;
+  showFullBalance?: boolean;
   metadata?: AppMetadata;
   unlockPassword?: string; // required to create superuser apps
 }
