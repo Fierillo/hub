@@ -23,6 +23,7 @@ type createConnectionParams struct {
 	BudgetRenewal     string                 `json:"budget_renewal"`
 	ExpiresAt         *uint64                `json:"expires_at"` // unix timestamp
 	Isolated          bool                   `json:"isolated"`
+	ShowFullBalance   bool                   `json:"show_full_balance"`
 	Metadata          map[string]interface{} `json:"metadata,omitempty"`
 }
 
@@ -121,7 +122,7 @@ func (controller *nip47Controller) HandleCreateConnectionEvent(ctx context.Conte
 		scopes = append(scopes, constants.NOTIFICATIONS_SCOPE)
 	}
 
-	app, _, err := controller.appsService.CreateApp(params.Name, params.Pubkey, maxAmountSat, params.BudgetRenewal, expiresAt, scopes, params.Isolated, params.Metadata)
+	app, _, err := controller.appsService.CreateApp(params.Name, params.Pubkey, maxAmountSat, params.BudgetRenewal, expiresAt, scopes, params.Isolated, params.ShowFullBalance, params.Metadata)
 	if err != nil {
 		logger.Logger.WithFields(logrus.Fields{
 			"request_event_id": requestEventId,
