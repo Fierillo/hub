@@ -210,7 +210,7 @@ const NewAppInternal = ({ capabilities }: NewAppInternalProps) => {
         : "monthly",
     expiresAt: parseExpiresParam(expiresAtParam),
     isolated: isolatedParam === "true",
-    showFullBalance: false,
+    showFullBalance: true,
   });
 
   const { Stepper } = React.useMemo(

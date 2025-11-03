@@ -154,6 +154,27 @@ const Permissions: React.FC<PermissionsProps> = ({
                     value={permissions.maxAmount}
                     onChange={handleBudgetMaxAmountChange}
                   />
+                  {!permissions.isolated && permissions.maxAmount > 0 && (
+                    <div className="flex mt-2">
+                      <Checkbox
+                        id="showFullBalance"
+                        checked={permissions.showFullBalance}
+                        onCheckedChange={(checked) =>
+                          setPermissions?.((prev) => ({
+                            ...prev,
+                            showFullBalance: checked as boolean,
+                          }))
+                        }
+                        className="mt-0.5"
+                      />
+                      <label
+                        htmlFor="showFullBalance"
+                        className="ml-2 text-sm text-foreground flex flex-col items-start justify-center"
+                      >
+                        Mostrar balance completo del nodo
+                      </label>
+                    </div>
+                  )}
                 </>
               )}
             </>
@@ -181,28 +202,6 @@ const Permissions: React.FC<PermissionsProps> = ({
             </div>
           )}
         </>
-      )}
-
-      {!permissions.isolated && permissions.maxAmount > 0 && (
-        <div className="flex mt-2">
-          <Checkbox
-            id="showFullBalance"
-            checked={permissions.showFullBalance}
-            onCheckedChange={(checked) =>
-              setPermissions?.((prev) => ({
-                ...prev,
-                showFullBalance: checked as boolean,
-              }))
-            }
-            className="mt-0.5"
-          />
-          <label
-            htmlFor="showFullBalance"
-            className="ml-2 text-sm text-foreground flex flex-col items-start justify-center"
-          >
-            Mostrar balance completo del nodo
-          </label>
-        </div>
       )}
 
       <>

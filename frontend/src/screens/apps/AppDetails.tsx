@@ -121,7 +121,7 @@ function AppInternal({ app, refetchApp, capabilities }: AppInternalProps) {
     budgetRenewal: app.budgetRenewal,
     expiresAt: app.expiresAt ? new Date(app.expiresAt) : undefined,
     isolated: app.isolated,
-    showFullBalance: app.showFullBalance || false,
+    showFullBalance: app.showFullBalance ?? true,
   });
   const [savedPermissions, setSavedPermissions] =
     React.useState<AppPermissions>(permissions);
