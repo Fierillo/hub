@@ -6,7 +6,7 @@
   "scripts": {
     "dev:http": "yarn prepare:http && vite --force",
     "dev:wails": "yarn prepare:wails && vite",
-    "build:http": "yarn prepare:http && tsc && vite build",
+    "build:http": "yarn prepare:http && npx tsc && npx vite build",
     "build:wails": "yarn prepare:wails && tsc && vite build",
     "prepare:wails": "shx cp ./platform_specific/wails/src/utils/*.ts src/utils/",
     "prepare:http": "shx cp ./platform_specific/http/src/utils/*.ts src/utils/",
